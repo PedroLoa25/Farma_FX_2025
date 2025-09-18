@@ -84,8 +84,6 @@ public class CategoriaController {
         tablaCategorias.refresh(); // Añadimos un refresh explícito
     }
 
-    // --- ACCIONES DE LOS BOTONES ---
-
     @FXML
     void nuevoAccion(ActionEvent event) {
         tablaCategorias.getSelectionModel().clearSelection();
@@ -110,7 +108,8 @@ public class CategoriaController {
             categoriaSeleccionada.setActivo(activoCheckBox.isSelected());
             categoriaServicio.guardarCategoria(categoriaSeleccionada);
             mostrarAlerta("Éxito", "Categoría actualizada correctamente.");
-        } else {
+        }
+        else {
             // MODO CREACIÓN
             Categoria nuevaCategoria = new Categoria();
             nuevaCategoria.setNombre(nombre);

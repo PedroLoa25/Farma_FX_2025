@@ -43,7 +43,9 @@
         <!-- Panel de Edición siempre visible -->
         <VBox fx:id="panelEdicion" alignment="TOP_CENTER" prefWidth="250.0" spacing="10.0" style="-fx-border-color: lightgray; -fx-border-width: 0 0 0 1;">
             <children>
-                <Label text="Detalle de Marca"><font><Font name="System Bold" size="18.0" /></font></Label>
+                <Label text="Detalle de Marca">
+                    <font><Font name="System Bold" size="18.0" /></font>
+                </Label>
                 <VBox prefWidth="100.0" spacing="5.0">
                     <children>
                         <Label text="Nombre:" />

@@ -83,6 +83,7 @@ public class MarcaController {
     private void cargarMarcas() {
         listaObservableMarcas = FXCollections.observableArrayList(marcaServicio.listarMarcas());
         tablaMarcas.setItems(listaObservableMarcas);
+        tablaMarcas.refresh();
     }
 
     @FXML
@@ -108,7 +109,8 @@ public class MarcaController {
             marcaSeleccionada.setActivo(activoCheckBox.isSelected());
             marcaServicio.guardarMarca(marcaSeleccionada);
             mostrarAlerta("Éxito", "Marca actualizada correctamente.");
-        } else {
+        }
+        else {
             Marca nuevaMarca = new Marca();
             nuevaMarca.setNombre(nombre);
             nuevaMarca.setActivo(activoCheckBox.isSelected());
