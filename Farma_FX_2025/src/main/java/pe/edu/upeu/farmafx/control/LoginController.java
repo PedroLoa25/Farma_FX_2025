@@ -1,0 +1,70 @@
+package pe.edu.upeu.farmafx.control;
+
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import pe.edu.upeu.farmafx.enums.RolUsuario;
+import pe.edu.upeu.farmafx.modelo.Usuario;
+import pe.edu.upeu.farmafx.servicio.UsuarioServicioI;
+import pe.edu.upeu.farmafx.utils.NavegadorVistas;
+import pe.edu.upeu.farmafx.utils.Vistas;
+
+@Controller
+public class LoginController {
+
+    @Autowired
+    private NavegadorVistas navegador;
+    @Autowired
+    private UsuarioServicioI usuarioServicio;
+
+    @FXML
+    private TextField dniTextField;
+    @FXML
+    private PasswordField clavePasswordField;
+    @FXML
+    private Label mensajeLabel;
+
+    @FXML
+    void ingresarAccion(ActionEvent event) {
+        String dni = dniTextField.getText();
+        String clave = clavePasswordField.getText();
+
+        if (dni.isEmpty() || clave.isEmpty()) {
+            mensajeLabel.setText("El DNI y la contraseña son obligatorios.");
+            return;
+        }
+
+        Usuario usuario = usuarioServicio.autenticarUsuario(dni, clave);
+
+        if (usuario != null) {
+            if (usuario.getRol() == RolUsuario.ADMINISTRADOR) {
+                // Obtenemos el nodo (botón) del evento
+                Node sourceNode = (Node) event.getSource();
+                // Llamamos al único método del navegador
+                navegador.cambiarEscena(sourceNode, Vistas.MENU_ADMIN, "Panel de Administrador");
+            } else if (usuario.getRol() == RolUsuario.CLIENTE) {
+                mensajeLabel.setText("Inicio de sesión exitoso (Cliente). Menú no implementado.");
+            }
+        } else {
+            mensajeLabel.setText("DNI o contraseña incorrectos.");
+        }
+    }
+
+    @FXML
+    void abrirVentanaRegistro(ActionEvent event) {
+        // Hacemos lo mismo aquí para ser consistentes
+        Node sourceNode = (Node) event.getSource();
+        navegador.cambiarEscena(sourceNode, Vistas.REGISTRO, "Registro de Nuevo Usuario");
+    }
+
+    @FXML
+    void salirAccion(ActionEvent event) {
+        Platform.exit();
+    }
+}
