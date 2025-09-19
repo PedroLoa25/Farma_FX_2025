@@ -54,7 +54,7 @@
                         <PasswordField fx:id="clavePasswordField" />
                         <Label text="Rol:" />
                         <ComboBox fx:id="rolComboBox" prefWidth="250.0" />
-                        <CheckBox fx:id="estadoCheckBox" mnemonicParsing="false" text="Activo" />
+                        <CheckBox fx:id="estadoCheckBox" text="Activo" />
                     </children>
                 </VBox>
                 <Button onAction="#guardarAccion" prefWidth="100.0" text="Guardar" />

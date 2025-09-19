@@ -12,10 +12,10 @@
     <top>
         <MenuBar BorderPane.alignment="CENTER">
             <menus>
-                <Menu mnemonicParsing="false" text="Archivo">
+                <Menu text="Archivo">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#cerrarSesionAccion" text="Cerrar Sesión" />
-                        <MenuItem mnemonicParsing="false" onAction="#salirAccion" text="Salir" />
+                        <MenuItem onAction="#cerrarSesionAccion" text="Cerrar Sesión" />
+                        <MenuItem onAction="#salirAccion" text="Salir" />
                     </items>
                 </Menu>
             </menus>

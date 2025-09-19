@@ -22,6 +22,6 @@
         <PasswordField fx:id="confirmarClavePasswordField" layoutX="60.0" layoutY="260.0" prefWidth="230.0" promptText="Repita su contraseña" />
         <Button fx:id="registrarButton" layoutX="137.0" layoutY="313.0" onAction="#registrarAccion" text="Registrarse" />
         <Label fx:id="mensajeLabel" alignment="CENTER" layoutX="25.0" layoutY="350.0" prefWidth="300.0" textAlignment="CENTER" wrapText="true" />
-        <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#volverAlLoginAccion" text="← Volver" />
+        <Button layoutX="14.0" layoutY="14.0" onAction="#volverAlLoginAccion" text="← Volver" />
     </children>
 </AnchorPane>

@@ -20,7 +20,7 @@
         <PasswordField fx:id="clavePasswordField" layoutX="60.0" layoutY="214.0" prefWidth="230.0" promptText="Ingrese su contraseña" />
         <Button fx:id="ingresarButton" layoutX="139.0" layoutY="274.0" onAction="#ingresarAccion" text="Ingresar" />
         <Label fx:id="mensajeLabel" alignment="CENTER" layoutX="26.0" layoutY="310.0" prefWidth="300.0" textFill="RED" />
-        <Button layoutX="111.0" layoutY="348.0" mnemonicParsing="false" onAction="#abrirVentanaRegistro" style="-fx-background-color: transparent; -fx-border-color: transparent;" text="¿No tienes cuenta? Regístrate" underline="true" />
-        <Button fx:id="salirButton" layoutX="286.0" layoutY="359.0" mnemonicParsing="false" onAction="#salirAccion" text="Salir" />
+        <Button layoutX="111.0" layoutY="348.0" onAction="#abrirVentanaRegistro" style="-fx-background-color: transparent; -fx-border-color: transparent;" text="¿No tienes cuenta? Regístrate" underline="true" />
+        <Button fx:id="salirButton" layoutX="286.0" layoutY="359.0" onAction="#salirAccion" text="Salir" />
     </children>
 </AnchorPane>
