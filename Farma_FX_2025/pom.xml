@@ -9,9 +9,9 @@
         <version>3.2.5</version> <relativePath/> </parent>
 
     <groupId>pe.edu.upeu.farmafx</groupId>
-    <artifactId>FarmaFX_1</artifactId>
+    <artifactId>FarmaFX_2025</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>FarmaFX_1</name>
+    <name>FarmaFX_2025</name>
     <description>Proyecto de farmacia con JavaFX y Spring Boot</description>
 
     <properties>
