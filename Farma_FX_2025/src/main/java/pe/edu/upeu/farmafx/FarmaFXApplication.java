@@ -1,4 +1,3 @@
-// Ahora está en el paquete raíz
 package pe.edu.upeu.farmafx;
 
 import javafx.application.Application;
@@ -13,7 +12,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 import pe.edu.upeu.farmafx.utils.Vistas;
 
 @SpringBootApplication
-// YA NO NECESITAMOS @ComponentScan
 public class FarmaFXApplication extends Application {
 
     private ConfigurableApplicationContext springContext;

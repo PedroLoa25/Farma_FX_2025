@@ -43,12 +43,10 @@ public class LoginController {
         Usuario usuario = usuarioServicio.autenticarUsuario(dni, clave);
 
         if (usuario != null) {
-            // --- LÓGICA DE REDIRECCIÓN POR ROL ---
             if (usuario.getRol() == RolUsuario.ADMINISTRADOR) {
                 navegador.cambiarEscena((Node) event.getSource(), Vistas.MENU_ADMIN, "Panel de Administrador");
             }
             else if (usuario.getRol() == RolUsuario.CLIENTE) {
-                // AHORA REDIRIGIMOS AL CLIENTE A SU PROPIO MENÚ
                 navegador.cambiarEscena((Node) event.getSource(), Vistas.MENU_CLIENTE, "Bienvenido Cliente");
             }
         } else {
@@ -58,7 +56,6 @@ public class LoginController {
 
     @FXML
     void abrirVentanaRegistro(ActionEvent event) {
-        // Hacemos lo mismo aquí para ser consistentes
         Node sourceNode = (Node) event.getSource();
         navegador.cambiarEscena(sourceNode, Vistas.REGISTRO, "Registro de Nuevo Usuario");
     }

@@ -45,7 +45,6 @@ public class UsuarioController {
         configurarTabla();
         cargarUsuarios();
         panelEdicion.setDisable(true);
-        // Llenamos el ComboBox con los roles disponibles
         rolComboBox.setItems(FXCollections.observableArrayList(RolUsuario.values()));
     }
 
@@ -71,8 +70,6 @@ public class UsuarioController {
         clavePasswordField.clear();
         rolComboBox.setValue(usuario.getRol());
         estadoCheckBox.setSelected(usuario.getEstado() == Estado.ACTIVO);
-
-        // El DNI y la clave no se deben modificar en un usuario existente
         dniTextField.setDisable(true);
         clavePasswordField.setDisable(true);
     }
@@ -82,7 +79,6 @@ public class UsuarioController {
         clavePasswordField.clear();
         rolComboBox.setValue(null);
         estadoCheckBox.setSelected(false);
-        // Habilitamos los campos para un nuevo registro
         dniTextField.setDisable(false);
         clavePasswordField.setDisable(false);
     }
@@ -113,7 +109,7 @@ public class UsuarioController {
             usuarioSeleccionado.setEstado(estadoSeleccionado);
             usuarioServicio.guardarUsuario(usuarioSeleccionado);
             mostrarAlerta("Éxito", "Usuario actualizado correctamente.");
-        } else { // Modo Creación
+        } else {
             if (dniTextField.getText().isEmpty() || clavePasswordField.getText().isEmpty() || rolComboBox.getValue() == null) {
                 mostrarAlerta("Error", "DNI, Contraseña y Rol son obligatorios.");
                 return;

@@ -15,7 +15,6 @@ public class CategoriaServicioImp extends CategoriaRepository implements Categor
 
     @Override
     public Categoria guardarCategoria(Categoria categoria) {
-        // Aquí podrías añadir validaciones, como no permitir nombres duplicados
         return super.guardar(categoria);
     }
 

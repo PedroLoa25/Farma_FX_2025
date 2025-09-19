@@ -4,7 +4,7 @@ import lombok.Data;
 import pe.edu.upeu.farmafx.enums.Estado;
 import pe.edu.upeu.farmafx.enums.RolUsuario;
 
-@Data // Anotación de Lombok: crea getters, setters, toString(), etc. automáticamente.
+@Data
 public class Usuario {
 
     private String dni;

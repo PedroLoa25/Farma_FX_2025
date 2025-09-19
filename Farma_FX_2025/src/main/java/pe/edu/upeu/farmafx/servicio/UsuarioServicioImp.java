@@ -6,12 +6,10 @@ import pe.edu.upeu.farmafx.repositorio.UsuarioRepository;
 import pe.edu.upeu.farmafx.utils.ValidacionesUtils;
 import pe.edu.upeu.farmafx.enums.Estado;
 
-import java.util.List; // Necesario para usar List
+import java.util.List;
 
 @Service
 public class UsuarioServicioImp extends UsuarioRepository implements UsuarioServicioI {
-
-    // --- MÉTODOS QUE YA TENÍAS ---
 
     @Override
     public String registrarUsuario(Usuario usuario) {
@@ -38,21 +36,11 @@ public class UsuarioServicioImp extends UsuarioRepository implements UsuarioServ
         return null;
     }
 
-    // --- NUEVOS MÉTODOS IMPLEMENTADOS ---
-
-    /**
-     * Devuelve la lista completa de usuarios. Necesario para llenar la TableView.
-     */
     @Override
     public List<Usuario> listarTodosLosUsuarios() {
         return this.listaUsuarios; // Devuelve la lista heredada del Repositorio
     }
 
-    /**
-     * Unifica la lógica de creación y actualización.
-     * Si el usuario no existe, lo añade a la lista.
-     * Si ya existe, los cambios se reflejan al modificar el objeto.
-     */
     @Override
     public Usuario guardarUsuario(Usuario usuario) {
         if(buscarPorDni(usuario.getDni()) == null) {
@@ -61,12 +49,8 @@ public class UsuarioServicioImp extends UsuarioRepository implements UsuarioServ
         return usuario;
     }
 
-    /**
-     * Elimina un usuario de la lista basándose en su DNI.
-     */
     @Override
     public void eliminarUsuarioPorDni(String dni) {
-        // removeIf recorre la lista y elimina el elemento que cumple la condición
         this.listaUsuarios.removeIf(user -> user.getDni().equals(dni));
     }
 }

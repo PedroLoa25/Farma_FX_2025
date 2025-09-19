@@ -67,9 +67,7 @@ public class RegistroController {
 
     @FXML
     void volverAlLoginAccion(ActionEvent event) {
-        // Obtenemos el nodo (botón) que originó el evento
         Node sourceNode = (Node) event.getSource();
-        // Llamamos al único método de navegación, pasándole el nodo
         navegador.cambiarEscena(sourceNode, Vistas.LOGIN, "Inicio de Sesión");
     }
 }

@@ -15,7 +15,6 @@ public class MenuClienteController {
     @Autowired
     private NavegadorVistas navegador;
 
-    // Añadimos la referencia al panel principal
     @FXML
     private BorderPane panelPrincipal;
 

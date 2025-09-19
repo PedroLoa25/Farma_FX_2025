@@ -1,5 +1,7 @@
 package pe.edu.upeu.farmafx.utils;
 
+import lombok.Data;
+
 public enum Vistas {
     LOGIN("/fxml/login.fxml"),
     REGISTRO("/fxml/registro.fxml"),
