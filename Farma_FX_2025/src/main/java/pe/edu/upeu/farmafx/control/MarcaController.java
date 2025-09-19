@@ -142,7 +142,8 @@ public class MarcaController {
 
     @FXML
     void volverAccion(ActionEvent event) {
-        navegador.cambiarEscena((Node) event.getSource(), Vistas.MENU_ADMIN, "Panel de Administrador");
+        Node sourceNode = (Node) event.getSource();
+        navegador.cambiarEscena(sourceNode, Vistas.MENU_ADMIN, "Panel de Administrador");
     }
 
     private void mostrarAlerta(String titulo, String mensaje) {

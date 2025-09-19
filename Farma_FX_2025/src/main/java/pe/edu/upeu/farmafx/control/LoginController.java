@@ -46,10 +46,12 @@ public class LoginController {
         if (usuario != null) {
             FarmaFXApplication.usuarioLogueado = usuario;
             if (usuario.getRol() == RolUsuario.ADMINISTRADOR) {
-                navegador.cambiarEscena((Node) event.getSource(), Vistas.MENU_ADMIN, "Panel de Administrador");
+                Node sourceNode = (Node) event.getSource();
+                navegador.cambiarEscena(sourceNode, Vistas.MENU_ADMIN, "Panel de Administrador");
             }
             else if (usuario.getRol() == RolUsuario.CLIENTE) {
-                navegador.cambiarEscena((Node) event.getSource(), Vistas.MENU_CLIENTE, "Bienvenido Cliente");
+                Node sourceNode = (Node) event.getSource();
+                navegador.cambiarEscena(sourceNode, Vistas.MENU_CLIENTE, "Bienvenido Cliente");
             }
         }
         else {

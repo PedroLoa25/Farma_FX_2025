@@ -38,6 +38,7 @@ public class MenuClienteController {
         FarmaFXApplication.usuarioLogueado = null;
         navegador.cambiarEscena(panelPrincipal, Vistas.LOGIN, "Inicio de Sesión");
     }
+
     @FXML
     void salirAccion(ActionEvent event) {
         Platform.exit();
