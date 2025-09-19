@@ -6,41 +6,67 @@ import pe.edu.upeu.farmafx.repositorio.UsuarioRepository;
 import pe.edu.upeu.farmafx.utils.ValidacionesUtils;
 import pe.edu.upeu.farmafx.enums.Estado;
 
+import java.util.List; // Necesario para usar List
+
 @Service
 public class UsuarioServicioImp extends UsuarioRepository implements UsuarioServicioI {
 
+    // --- MÉTODOS QUE YA TENÍAS ---
+
     @Override
     public String registrarUsuario(Usuario usuario) {
-        // Paso 1: Usar la clase de utilidades para validar los datos.
         if (!ValidacionesUtils.validarDni(usuario.getDni())) {
             return "Error: El DNI debe tener 8 dígitos numéricos.";
         }
         if (!ValidacionesUtils.validarClave(usuario.getClave())) {
             return "Error: La clave debe tener más de 8 caracteres, incluyendo letras y números.";
         }
-
-        // Paso 2: Usar el método 'buscarPorDni' que HEREDAMOS del repositorio.
         if (this.buscarPorDni(usuario.getDni()) != null) {
             return "Error: El DNI ya se encuentra registrado.";
         }
-
-        // Paso 3: Si todo es correcto, guardamos el usuario.
         usuario.setEstado(Estado.ACTIVO);
-        // Usamos el método 'guardar' que también HEREDAMOS.
-        this.guardar(usuario);
+        this.guardarUsuario(usuario); // Reutilizamos el nuevo método unificado
         return "Registro exitoso.";
     }
 
     @Override
     public Usuario autenticarUsuario(String dni, String clave) {
-        // Usamos el método heredado 'buscarPorDni'.
         Usuario usuario = this.buscarPorDni(dni);
-
-        // Verificamos que el usuario exista, la clave sea correcta y esté activo.
         if (usuario != null && usuario.getClave().equals(clave) && usuario.getEstado() == Estado.ACTIVO) {
             return usuario;
         }
+        return null;
+    }
 
-        return null; // Si algo falla, retornamos null.
+    // --- NUEVOS MÉTODOS IMPLEMENTADOS ---
+
+    /**
+     * Devuelve la lista completa de usuarios. Necesario para llenar la TableView.
+     */
+    @Override
+    public List<Usuario> listarTodosLosUsuarios() {
+        return this.listaUsuarios; // Devuelve la lista heredada del Repositorio
+    }
+
+    /**
+     * Unifica la lógica de creación y actualización.
+     * Si el usuario no existe, lo añade a la lista.
+     * Si ya existe, los cambios se reflejan al modificar el objeto.
+     */
+    @Override
+    public Usuario guardarUsuario(Usuario usuario) {
+        if(buscarPorDni(usuario.getDni()) == null) {
+            this.guardar(usuario); // El método 'guardar' del Repositorio añade a la lista
+        }
+        return usuario;
+    }
+
+    /**
+     * Elimina un usuario de la lista basándose en su DNI.
+     */
+    @Override
+    public void eliminarUsuarioPorDni(String dni) {
+        // removeIf recorre la lista y elimina el elemento que cumple la condición
+        this.listaUsuarios.removeIf(user -> user.getDni().equals(dni));
     }
 }

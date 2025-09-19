@@ -17,13 +17,8 @@ public class NavegadorVistas {
     @Autowired
     private ApplicationContext context;
 
-    /**
-     * El único método para cambiar de escena.
-     * Funciona con cualquier elemento visible de la interfaz (botones, paneles, etc.).
-     */
     public void cambiarEscena(Node node, Vistas vista, String titulo) {
         try {
-            // Obtiene la ventana actual desde el nodo que le pasemos
             Stage stage = (Stage) node.getScene().getWindow();
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource(vista.getRuta()));

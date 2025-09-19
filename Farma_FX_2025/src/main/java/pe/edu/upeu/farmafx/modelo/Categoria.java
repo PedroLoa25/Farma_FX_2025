@@ -1,10 +1,11 @@
 package pe.edu.upeu.farmafx.modelo;
 
 import lombok.Data;
+import pe.edu.upeu.farmafx.enums.Estado;
 
 @Data
 public class Categoria {
     private int id;
     private String nombre;
-    private boolean activo; // Usaremos 'activo' para el estado
+    private Estado estado; // Cambiado de boolean a Estado
 }

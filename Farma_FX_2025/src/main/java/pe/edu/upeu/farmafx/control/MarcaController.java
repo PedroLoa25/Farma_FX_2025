@@ -7,16 +7,14 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import pe.edu.upeu.farmafx.enums.Estado;
 import pe.edu.upeu.farmafx.modelo.Marca;
 import pe.edu.upeu.farmafx.servicio.MarcaServicioI;
 import pe.edu.upeu.farmafx.utils.NavegadorVistas;
 import pe.edu.upeu.farmafx.utils.Vistas;
-
-import java.util.Optional;
 
 @Controller
 public class MarcaController {
@@ -26,35 +24,34 @@ public class MarcaController {
     @Autowired
     private NavegadorVistas navegador;
 
-    @FXML private BorderPane panelPrincipal;
     @FXML private TableView<Marca> tablaMarcas;
     @FXML private TableColumn<Marca, Integer> colId;
     @FXML private TableColumn<Marca, String> colNombre;
-    @FXML private TableColumn<Marca, Boolean> colActivo;
+    @FXML private TableColumn<Marca, Estado> colEstado; // Cambiado a Estado
 
-    @FXML private VBox panelEdicion;
     @FXML private TextField nombreTextField;
     @FXML private CheckBox activoCheckBox;
+    @FXML private VBox panelEdicion;
 
-    private ObservableList<Marca> listaObservableMarcas;
     private Marca marcaSeleccionada;
 
     @FXML
     public void initialize() {
         configurarTabla();
         cargarMarcas();
-        panelEdicion.setDisable(true); // El panel empieza deshabilitado
+        panelEdicion.setDisable(true);
     }
 
     private void configurarTabla() {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        colActivo.setCellValueFactory(new PropertyValueFactory<>("activo"));
-        colActivo.setCellFactory(c -> new TableCell<>() {
+        colEstado.setCellValueFactory(new PropertyValueFactory<>("estado")); // Cambiado a "estado"
+
+        colEstado.setCellFactory(c -> new TableCell<>() {
             @Override
-            protected void updateItem(Boolean item, boolean empty) {
+            protected void updateItem(Estado item, boolean empty) {
                 super.updateItem(item, empty);
-                setText(empty || item == null ? null : (item ? "Activo" : "Inactivo"));
+                setText(empty || item == null ? null : item.toString());
             }
         });
 
@@ -72,7 +69,7 @@ public class MarcaController {
 
     private void mostrarDatosEnPanel(Marca marca) {
         nombreTextField.setText(marca.getNombre());
-        activoCheckBox.setSelected(marca.isActivo());
+        activoCheckBox.setSelected(marca.getEstado() == Estado.ACTIVO);
     }
 
     private void limpiarPanel() {
@@ -81,7 +78,7 @@ public class MarcaController {
     }
 
     private void cargarMarcas() {
-        listaObservableMarcas = FXCollections.observableArrayList(marcaServicio.listarMarcas());
+        ObservableList<Marca> listaObservableMarcas = FXCollections.observableArrayList(marcaServicio.listarMarcas());
         tablaMarcas.setItems(listaObservableMarcas);
         tablaMarcas.refresh();
     }
@@ -104,21 +101,22 @@ public class MarcaController {
             return;
         }
 
+        Estado estadoSeleccionado = activoCheckBox.isSelected() ? Estado.ACTIVO : Estado.INACTIVO;
+
         if (this.marcaSeleccionada != null) {
             marcaSeleccionada.setNombre(nombre);
-            marcaSeleccionada.setActivo(activoCheckBox.isSelected());
+            marcaSeleccionada.setEstado(estadoSeleccionado);
             marcaServicio.guardarMarca(marcaSeleccionada);
             mostrarAlerta("Éxito", "Marca actualizada correctamente.");
-        }
-        else {
+        } else {
             Marca nuevaMarca = new Marca();
             nuevaMarca.setNombre(nombre);
-            nuevaMarca.setActivo(activoCheckBox.isSelected());
+            nuevaMarca.setEstado(estadoSeleccionado);
             marcaServicio.guardarMarca(nuevaMarca);
             mostrarAlerta("Éxito", "Marca creada correctamente.");
         }
 
-        cargarMarcas(); // <-- REFRESH DESPUÉS DE GUARDAR
+        cargarMarcas();
         tablaMarcas.getSelectionModel().clearSelection();
     }
 
@@ -137,15 +135,14 @@ public class MarcaController {
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
                 marcaServicio.eliminarMarca(seleccionada.getId());
-                cargarMarcas(); // <-- REFRESH DESPUÉS DE ELIMINAR
+                cargarMarcas();
             }
         });
     }
 
     @FXML
     void volverAccion(ActionEvent event) {
-        Node sourceNode = (Node) event.getSource();
-        navegador.cambiarEscena(sourceNode, Vistas.MENU_ADMIN, "Panel de Administrador");
+        navegador.cambiarEscena((Node) event.getSource(), Vistas.MENU_ADMIN, "Panel de Administrador");
     }
 
     private void mostrarAlerta(String titulo, String mensaje) {

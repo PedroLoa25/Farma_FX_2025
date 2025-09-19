@@ -7,10 +7,10 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import pe.edu.upeu.farmafx.enums.Estado;
 import pe.edu.upeu.farmafx.modelo.Categoria;
 import pe.edu.upeu.farmafx.servicio.CategoriaServicioI;
 import pe.edu.upeu.farmafx.utils.NavegadorVistas;
@@ -24,11 +24,10 @@ public class CategoriaController {
     @Autowired
     private NavegadorVistas navegador;
 
-    @FXML private BorderPane panelPrincipal;
     @FXML private TableView<Categoria> tablaCategorias;
     @FXML private TableColumn<Categoria, Integer> colId;
     @FXML private TableColumn<Categoria, String> colNombre;
-    @FXML private TableColumn<Categoria, Boolean> colActivo;
+    @FXML private TableColumn<Categoria, Estado> colEstado;
 
     @FXML private VBox panelEdicion;
     @FXML private TextField nombreTextField;
@@ -47,12 +46,12 @@ public class CategoriaController {
     private void configurarTabla() {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        colActivo.setCellValueFactory(new PropertyValueFactory<>("activo"));
-        colActivo.setCellFactory(c -> new TableCell<>() {
+        colEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
+        colEstado.setCellFactory(c -> new TableCell<>() {
             @Override
-            protected void updateItem(Boolean item, boolean empty) {
+            protected void updateItem(Estado item, boolean empty) {
                 super.updateItem(item, empty);
-                setText(empty || item == null ? null : (item ? "Activo" : "Inactivo"));
+                setText(empty || item == null ? null : item.toString());
             }
         });
 
@@ -70,7 +69,7 @@ public class CategoriaController {
 
     private void mostrarDatosEnPanel(Categoria categoria) {
         nombreTextField.setText(categoria.getNombre());
-        activoCheckBox.setSelected(categoria.isActivo());
+        activoCheckBox.setSelected(categoria.getEstado() == Estado.ACTIVO);
     }
 
     private void limpiarPanel() {
@@ -81,13 +80,13 @@ public class CategoriaController {
     private void cargarCategorias() {
         listaObservableCategorias = FXCollections.observableArrayList(categoriaServicio.listarCategorias());
         tablaCategorias.setItems(listaObservableCategorias);
-        tablaCategorias.refresh(); // Añadimos un refresh explícito
+        tablaCategorias.refresh();
     }
 
     @FXML
     void nuevoAccion(ActionEvent event) {
         tablaCategorias.getSelectionModel().clearSelection();
-        this.categoriaSeleccionada = null;
+        categoriaSeleccionada = null;
         limpiarPanel();
         activoCheckBox.setSelected(true);
         panelEdicion.setDisable(false);
@@ -101,24 +100,21 @@ public class CategoriaController {
             mostrarAlerta("Error", "El nombre no puede estar vacío.");
             return;
         }
-
         if (this.categoriaSeleccionada != null) {
-            // MODO EDICIÓN
             categoriaSeleccionada.setNombre(nombre);
-            categoriaSeleccionada.setActivo(activoCheckBox.isSelected());
+            Estado estadoSeleccionado = activoCheckBox.isSelected() ? Estado.ACTIVO : Estado.INACTIVO;
+            categoriaSeleccionada.setEstado(estadoSeleccionado);
             categoriaServicio.guardarCategoria(categoriaSeleccionada);
             mostrarAlerta("Éxito", "Categoría actualizada correctamente.");
         }
         else {
-            // MODO CREACIÓN
             Categoria nuevaCategoria = new Categoria();
             nuevaCategoria.setNombre(nombre);
-            nuevaCategoria.setActivo(activoCheckBox.isSelected());
+            Estado estadoSeleccionado = activoCheckBox.isSelected() ? Estado.ACTIVO : Estado.INACTIVO;
+            nuevaCategoria.setEstado(estadoSeleccionado);
             categoriaServicio.guardarCategoria(nuevaCategoria);
             mostrarAlerta("Éxito", "Categoría creada correctamente.");
         }
-
-        // ¡AQUÍ ESTÁ LA CORRECCIÓN! Siempre recargamos los datos después de guardar.
         cargarCategorias();
         tablaCategorias.getSelectionModel().clearSelection();
     }
@@ -127,7 +123,7 @@ public class CategoriaController {
     void eliminarAccion(ActionEvent event) {
         Categoria seleccionada = tablaCategorias.getSelectionModel().getSelectedItem();
         if (seleccionada == null) {
-            mostrarAlerta("Error", "Debe seleccionar una categoría para eliminar.");
+            mostrarAlerta("Error","Debe seleccionar una categoría.");
             return;
         }
 

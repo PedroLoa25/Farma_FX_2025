@@ -1,5 +1,6 @@
 package pe.edu.upeu.farmafx.repositorio;
 
+import pe.edu.upeu.farmafx.enums.Estado;
 import pe.edu.upeu.farmafx.modelo.Marca;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +11,8 @@ public class MarcaRepository {
     private int proximoId = 1;
 
     public MarcaRepository() {
-        guardar(new Marca() {{ setNombre("Genfar"); setActivo(true); }});
-        guardar(new Marca() {{ setNombre("Bayer"); setActivo(true); }});
+        guardar(new Marca() {{ setNombre("Genfar"); setEstado(Estado.ACTIVO); }});
+        guardar(new Marca() {{ setNombre("Bayer"); setEstado(Estado.ACTIVO); }});
     }
 
     public List<Marca> buscarTodos() {
@@ -28,7 +29,7 @@ public class MarcaRepository {
                     .findFirst()
                     .ifPresent(m -> {
                         m.setNombre(marca.getNombre());
-                        m.setActivo(marca.isActivo());
+                        m.setEstado(marca.getEstado()); // Usando el enum
                     });
         }
         return marca;

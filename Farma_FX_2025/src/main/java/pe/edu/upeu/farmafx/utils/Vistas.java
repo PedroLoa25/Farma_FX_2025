@@ -4,8 +4,9 @@ public enum Vistas {
     LOGIN("/fxml/login.fxml"),
     REGISTRO("/fxml/registro.fxml"),
     MENU_ADMIN("/fxml/menu_admin.fxml"),
+    GESTION_MARCAS("/fxml/gestion_marcas.fxml"),
     GESTION_CATEGORIAS("/fxml/gestion_categorias.fxml"),
-    GESTION_MARCAS("/fxml/gestion_marcas.fxml");
+    GESTION_USUARIOS("/fxml/gestion_usuarios.fxml");
 
     private final String ruta;
 

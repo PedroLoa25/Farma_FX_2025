@@ -1,5 +1,6 @@
 package pe.edu.upeu.farmafx.control;
 
+import javafx.scene.Node;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,12 +21,14 @@ public class MenuAdminController {
 
     @FXML
     void abrirGestionCategorias(ActionEvent event) {
-        navegador.cambiarEscena(panelPrincipal, Vistas.GESTION_CATEGORIAS, "Gestión de Categorías");
+        Node sourceNode = (Node) event.getSource();
+        navegador.cambiarEscena(sourceNode, Vistas.GESTION_CATEGORIAS, "Gestión de Categorías");
     }
 
     @FXML
     void abrirGestionMarcas(ActionEvent event) {
-        navegador.cambiarEscena(panelPrincipal, Vistas.GESTION_MARCAS, "Gestión de Marcas");
+        Node sourceNode = (Node) event.getSource();
+        navegador.cambiarEscena(sourceNode, Vistas.GESTION_MARCAS, "Gestión de Marcas");
     }
 
     @FXML
@@ -34,8 +37,14 @@ public class MenuAdminController {
     }
 
     @FXML
+    void abrirGestionUsuarios(ActionEvent event) {
+        Node sourceNode = (Node) event.getSource();
+        navegador.cambiarEscena(sourceNode, Vistas.GESTION_USUARIOS, "Gestión de Usuarios");
+    }
+
+    @FXML
     void cerrarSesionAccion(ActionEvent event) {
-        navegador.cambiarEscena(panelPrincipal, Vistas.LOGIN, "Inicio de Sesión");
+        navegador.cambiarEscena(panelPrincipal, Vistas.LOGIN, "FarmaFX - Inicio de Sesión");
     }
 
     @FXML

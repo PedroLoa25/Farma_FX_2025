@@ -24,7 +24,7 @@
             <columns>
                 <TableColumn fx:id="colId" prefWidth="50.0" text="ID" />
                 <TableColumn fx:id="colNombre" prefWidth="250.0" text="Nombre" />
-                <TableColumn fx:id="colActivo" prefWidth="100.0" text="Estado" />
+                <TableColumn fx:id="colEstado" prefWidth="100.0" text="Estado" />
             </columns>
             <BorderPane.margin><Insets bottom="10.0" left="10.0" right="10.0" top="10.0" /></BorderPane.margin>
         </TableView>
@@ -32,7 +32,6 @@
     <bottom>
         <HBox alignment="CENTER" prefHeight="50.0" spacing="20.0" BorderPane.alignment="CENTER">
             <children>
-                <!-- Cambiado de "Agregar" a "Nuevo" y la acción a "nuevoAccion" -->
                 <Button onAction="#nuevoAccion" prefWidth="100.0" text="Nuevo" />
                 <Button onAction="#eliminarAccion" prefWidth="100.0" text="Eliminar" />
                 <Button onAction="#volverAccion" prefWidth="180.0" text="Volver al Menú Principal" />
@@ -40,7 +39,6 @@
         </HBox>
     </bottom>
     <right>
-        <!-- Panel de Edición siempre visible -->
         <VBox fx:id="panelEdicion" alignment="TOP_CENTER" prefWidth="250.0" spacing="10.0" style="-fx-border-color: lightgray; -fx-border-width: 0 0 0 1;">
             <children>
                 <Label text="Detalle de Marca">
