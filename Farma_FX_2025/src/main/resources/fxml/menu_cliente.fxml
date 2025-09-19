@@ -21,6 +21,7 @@
                                 <MenuItem onAction="#salirAccion" text="Salir" />
                             </items>
                         </Menu>
+                        <Menu fx:id="menuCategorias" text="Categorías" />
                     </menus>
                 </MenuBar>
                 <Label fx:id="dniUsuarioLabel" text="Usuario: ">
@@ -35,7 +36,7 @@
         </VBox>
     </top>
     <center>
-        <Label text="¡Bienvenido! Aquí se mostrarán los productos." BorderPane.alignment="CENTER">
+        <Label text="¡Bienvenido!" BorderPane.alignment="CENTER">
             <font>
                 <Font size="16.0" />
             </font>
