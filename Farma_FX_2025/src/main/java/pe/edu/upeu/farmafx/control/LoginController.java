@@ -43,13 +43,13 @@ public class LoginController {
         Usuario usuario = usuarioServicio.autenticarUsuario(dni, clave);
 
         if (usuario != null) {
+            // --- LÓGICA DE REDIRECCIÓN POR ROL ---
             if (usuario.getRol() == RolUsuario.ADMINISTRADOR) {
-                // Obtenemos el nodo (botón) del evento
-                Node sourceNode = (Node) event.getSource();
-                // Llamamos al único método del navegador
-                navegador.cambiarEscena(sourceNode, Vistas.MENU_ADMIN, "Panel de Administrador");
-            } else if (usuario.getRol() == RolUsuario.CLIENTE) {
-                mensajeLabel.setText("Inicio de sesión exitoso (Cliente). Menú no implementado.");
+                navegador.cambiarEscena((Node) event.getSource(), Vistas.MENU_ADMIN, "Panel de Administrador");
+            }
+            else if (usuario.getRol() == RolUsuario.CLIENTE) {
+                // AHORA REDIRIGIMOS AL CLIENTE A SU PROPIO MENÚ
+                navegador.cambiarEscena((Node) event.getSource(), Vistas.MENU_CLIENTE, "Bienvenido Cliente");
             }
         } else {
             mensajeLabel.setText("DNI o contraseña incorrectos.");
