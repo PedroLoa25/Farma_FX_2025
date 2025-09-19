@@ -7,5 +7,5 @@ import pe.edu.upeu.farmafx.enums.Estado;
 public class Categoria {
     private int id;
     private String nombre;
-    private Estado estado; // Cambiado de boolean a Estado
+    private Estado estado;
 }

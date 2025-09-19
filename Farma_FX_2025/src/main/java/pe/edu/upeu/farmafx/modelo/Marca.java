@@ -7,5 +7,5 @@ import pe.edu.upeu.farmafx.enums.Estado;
 public class Marca {
     private int id;
     private String nombre;
-    private Estado estado; // Antes: boolean activo
+    private Estado estado;
 }

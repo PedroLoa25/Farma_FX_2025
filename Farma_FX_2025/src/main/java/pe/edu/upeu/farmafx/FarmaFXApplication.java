@@ -25,9 +25,9 @@ public class FarmaFXApplication extends Application {
 
     @Override
     public void init() throws Exception {
-        springContext = new SpringApplicationBuilder(FarmaFXApplication.class)
-                .web(WebApplicationType.NONE)
-                .run(getParameters().getRaw().toArray(new String[0]));
+        SpringApplicationBuilder builder = new SpringApplicationBuilder(FarmaFXApplication.class);
+        builder.application().setWebApplicationType(WebApplicationType.NONE);
+        springContext =builder.run(getParameters().getRaw().toArray(new String[0]));
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource(Vistas.LOGIN.getRuta()));
         loader.setControllerFactory(springContext::getBean);
@@ -35,7 +35,7 @@ public class FarmaFXApplication extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("FarmaFX");
         primaryStage.setScene(new Scene(rootNode));
         primaryStage.show();

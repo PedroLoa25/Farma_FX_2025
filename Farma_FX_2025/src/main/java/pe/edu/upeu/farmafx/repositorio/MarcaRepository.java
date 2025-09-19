@@ -29,7 +29,7 @@ public class MarcaRepository {
                     .findFirst()
                     .ifPresent(m -> {
                         m.setNombre(marca.getNombre());
-                        m.setEstado(marca.getEstado()); // Usando el enum
+                        m.setEstado(marca.getEstado());
                     });
         }
         return marca;

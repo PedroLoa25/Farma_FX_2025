@@ -30,7 +30,7 @@ public class CategoriaRepository {
                     .findFirst()
                     .ifPresent(c -> {
                         c.setNombre(categoria.getNombre());
-                        c.setEstado(categoria.getEstado()); // Usando el enum
+                        c.setEstado(categoria.getEstado());
                     });
         }
         return categoria;

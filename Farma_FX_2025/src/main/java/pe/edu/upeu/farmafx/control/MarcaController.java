@@ -27,7 +27,7 @@ public class MarcaController {
     @FXML private TableView<Marca> tablaMarcas;
     @FXML private TableColumn<Marca, Integer> colId;
     @FXML private TableColumn<Marca, String> colNombre;
-    @FXML private TableColumn<Marca, Estado> colEstado; // Cambiado a Estado
+    @FXML private TableColumn<Marca, Estado> colEstado;
 
     @FXML private TextField nombreTextField;
     @FXML private CheckBox activoCheckBox;
@@ -45,7 +45,7 @@ public class MarcaController {
     private void configurarTabla() {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        colEstado.setCellValueFactory(new PropertyValueFactory<>("estado")); // Cambiado a "estado"
+        colEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
 
         colEstado.setCellFactory(c -> new TableCell<>() {
             @Override
@@ -64,7 +64,7 @@ public class MarcaController {
                 limpiarPanel();
                 panelEdicion.setDisable(true);
             }
-        });
+        }   );
     }
 
     private void mostrarDatosEnPanel(Marca marca) {

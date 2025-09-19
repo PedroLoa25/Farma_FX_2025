@@ -23,7 +23,7 @@ public class UsuarioServicioImp extends UsuarioRepository implements UsuarioServ
             return "Error: El DNI ya se encuentra registrado.";
         }
         usuario.setEstado(Estado.ACTIVO);
-        this.guardarUsuario(usuario); // Reutilizamos el nuevo método unificado
+        this.guardarUsuario(usuario);
         return "Registro exitoso.";
     }
 
@@ -38,13 +38,13 @@ public class UsuarioServicioImp extends UsuarioRepository implements UsuarioServ
 
     @Override
     public List<Usuario> listarTodosLosUsuarios() {
-        return this.listaUsuarios; // Devuelve la lista heredada del Repositorio
+        return this.listaUsuarios;
     }
 
     @Override
     public Usuario guardarUsuario(Usuario usuario) {
         if(buscarPorDni(usuario.getDni()) == null) {
-            this.guardar(usuario); // El método 'guardar' del Repositorio añade a la lista
+            this.guardar(usuario);
         }
         return usuario;
     }

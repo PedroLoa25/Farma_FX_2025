@@ -94,8 +94,8 @@ public class UsuarioController {
         tablaUsuarios.getSelectionModel().clearSelection();
         this.usuarioSeleccionado = null;
         limpiarPanel();
-        rolComboBox.setValue(RolUsuario.CLIENTE); // Rol por defecto
-        estadoCheckBox.setSelected(true); // Estado por defecto
+        rolComboBox.setValue(RolUsuario.CLIENTE);
+        estadoCheckBox.setSelected(true);
         panelEdicion.setDisable(false);
         dniTextField.requestFocus();
     }
@@ -104,7 +104,7 @@ public class UsuarioController {
     void guardarAccion(ActionEvent event) {
         Estado estadoSeleccionado = estadoCheckBox.isSelected() ? Estado.ACTIVO : Estado.INACTIVO;
 
-        if (this.usuarioSeleccionado != null) { // Modo Edición
+        if (this.usuarioSeleccionado != null) {
             usuarioSeleccionado.setRol(rolComboBox.getValue());
             usuarioSeleccionado.setEstado(estadoSeleccionado);
             usuarioServicio.guardarUsuario(usuarioSeleccionado);
