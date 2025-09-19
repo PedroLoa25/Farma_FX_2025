@@ -1,5 +1,6 @@
 package pe.edu.upeu.farmafx;
 
+import pe.edu.upeu.farmafx.modelo.Usuario;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,6 +15,7 @@ import pe.edu.upeu.farmafx.utils.Vistas;
 @SpringBootApplication
 public class FarmaFXApplication extends Application {
 
+    public static Usuario usuarioLogueado;
     private ConfigurableApplicationContext springContext;
     private Parent rootNode;
 

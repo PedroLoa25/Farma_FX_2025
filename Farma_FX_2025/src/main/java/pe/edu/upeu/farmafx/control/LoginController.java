@@ -1,5 +1,6 @@
 package pe.edu.upeu.farmafx.control;
 
+import pe.edu.upeu.farmafx.FarmaFXApplication;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -43,13 +44,15 @@ public class LoginController {
         Usuario usuario = usuarioServicio.autenticarUsuario(dni, clave);
 
         if (usuario != null) {
+            FarmaFXApplication.usuarioLogueado = usuario;
             if (usuario.getRol() == RolUsuario.ADMINISTRADOR) {
                 navegador.cambiarEscena((Node) event.getSource(), Vistas.MENU_ADMIN, "Panel de Administrador");
             }
             else if (usuario.getRol() == RolUsuario.CLIENTE) {
                 navegador.cambiarEscena((Node) event.getSource(), Vistas.MENU_CLIENTE, "Bienvenido Cliente");
             }
-        } else {
+        }
+        else {
             mensajeLabel.setText("DNI o contraseña incorrectos.");
         }
     }
