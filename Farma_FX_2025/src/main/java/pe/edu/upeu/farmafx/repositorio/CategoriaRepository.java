@@ -24,7 +24,8 @@ public class CategoriaRepository {
         if (categoria.getId() == 0) {
             categoria.setId(proximoId++);
             listaCategorias.add(categoria);
-        } else {
+        }
+        else {
             listaCategorias.stream()
                     .filter(c -> c.getId() == categoria.getId())
                     .findFirst()

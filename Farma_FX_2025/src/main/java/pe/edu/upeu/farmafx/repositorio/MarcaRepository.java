@@ -23,7 +23,8 @@ public class MarcaRepository {
         if (marca.getId() == 0) {
             marca.setId(proximoId++);
             listaMarcas.add(marca);
-        } else {
+        }
+        else {
             listaMarcas.stream()
                     .filter(m -> m.getId() == marca.getId())
                     .findFirst()
